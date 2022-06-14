@@ -16,4 +16,9 @@ public class EventDef
     /// 加分
     /// </summary>
     public const string EVENT_ADD_SCORE = "EVENT_ADD_SCORE";
+
+    /// <summary>
+    /// 加COMBO
+    /// </summary>
+    public const string EVENT_SET_COMBO = "EVENT_SET_COMBO";
 }

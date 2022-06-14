@@ -117,6 +117,8 @@ public class FruitSpawner : MonoBehaviour
     {
         if (Mathf.Abs(m_fingerMoveX) > Mathf.Abs(m_fingerMoveY))
         {
+            //拋出Combo清除
+            EventDispatcher.instance.DispatchEvent(EventDef.EVENT_SET_COMBO, "Clean");
             //横向滑动
             var targetItem = GetFruitItem(m_curSelectFruit.rowIndex, m_curSelectFruit.columIndex + (m_fingerMoveX > 0 ? 1 : -1));
             if (null != targetItem)
@@ -130,6 +132,8 @@ public class FruitSpawner : MonoBehaviour
         }
         else if (Mathf.Abs(m_fingerMoveX) < Mathf.Abs(m_fingerMoveY))
         {
+            //拋出Combo清除
+            EventDispatcher.instance.DispatchEvent(EventDef.EVENT_SET_COMBO, "Clean");
             //纵向滑动
             var targetItem = GetFruitItem(m_curSelectFruit.rowIndex + (m_fingerMoveY > 0 ? 1 : -1), m_curSelectFruit.columIndex);
             if (null != targetItem)
@@ -326,7 +330,12 @@ public class FruitSpawner : MonoBehaviour
         {
             var item = m_matchFruits[i] as FruitItem;
             item.DestroyFruitBg();
+        }
 
+        if (m_matchFruits.Count > 0)
+        {
+            //拋出COMBO++
+            EventDispatcher.instance.DispatchEvent(EventDef.EVENT_SET_COMBO, "Add");
         }
     }
 
