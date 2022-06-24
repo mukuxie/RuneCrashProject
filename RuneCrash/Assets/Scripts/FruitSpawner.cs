@@ -49,11 +49,31 @@ public class FruitSpawner : MonoBehaviour
     {
         m_fruitRoot = transform;
         EventDispatcher.instance.Regist(EventDef.EVENT_FRUIT_SELECTED, OnFruitSelected);
+
+        ChangeRunePrefab();
     }
 
     private void OnDestroy()
     {
         EventDispatcher.instance.UnRegist(EventDef.EVENT_FRUIT_SELECTED, OnFruitSelected);
+    }
+
+    /// <summary>
+    /// 依照傳進來的資料更新盧恩符文圖案
+    /// </summary>
+    private void ChangeRunePrefab()
+    {
+        try
+        {
+            for (int i = 0; i < fruitPrefabs.Length; i++)
+            {
+                fruitPrefabs[i] = RuneListContainer.Instance.opRuneData.runeList[i];
+            }
+        }
+        catch 
+        {
+            print("<color='red'>DEBUG MODE...</color> NOT START FROM MAIN MENU.");
+        }
     }
 
     /// <summary>
