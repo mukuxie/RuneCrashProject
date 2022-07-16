@@ -170,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disappearEffectPrefab: {fileID: 7959662948593438978, guid: d1b2a05a39689c2448bc98211dbe62f3, type: 3}
   scoreEffectPrefab: {fileID: 478438820111401155, guid: 14885bf6b12d2664b979cf262b5a582e, type: 3}
-  soundCrash: {fileID: 8300000, guid: e7feeaf75b584b348977859f27d17e2e, type: 3}
+  soundCrash: {fileID: 8300000, guid: 628d1204da1c1a24791c25b6a54dd298, type: 3}
 --- !u!82 &135556956
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2090,7 +2090,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 363f554a8a15a7e4795d89e316708314, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7fca48fffdd7474d8ecc1c3c1fa8309, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
