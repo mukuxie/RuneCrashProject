@@ -70,7 +70,7 @@ public class FruitSpawner : MonoBehaviour
                 fruitPrefabs[i] = RuneListContainer.Instance.opRuneData.runeList[i];
             }
         }
-        catch 
+        catch
         {
             print("<color='red'>DEBUG MODE...</color> NOT START FROM MAIN MENU.");
         }
@@ -404,23 +404,62 @@ public class FruitSpawner : MonoBehaviour
         for (int rowIndex = 0; rowIndex < GlobalDef.ROW_COUNT; ++rowIndex)
         {
             ArrayList temp = new ArrayList();
+
             for (int columIndex = 0; columIndex < GlobalDef.COLUM_COUNT; ++columIndex)
             {
-                var item = AddRandomFruitItem(rowIndex, columIndex);
+                var type = Random.Range(0, fruitPrefabs.Length);
+                int[] cantUseType = new int[2];
+                cantUseType[0] = ReturnCantUseCol(temp, type, columIndex);
+                cantUseType[1] = ReturnCantUseRow(rowIndex, columIndex);
+
+                while (cantUseType[0] == type || cantUseType[1] == type)
+                {
+                    type = Random.Range(0, fruitPrefabs.Length);
+                }
+
+                var item = AddRandomFruitItem(rowIndex, columIndex, type);
+                //一顆一單位
                 temp.Add(item);
             }
-            // 存到数组中
+
+            //一排一單位
             fruitList.Add(temp);
         }
+    }
+
+    int ReturnCantUseCol(ArrayList temp, int type, int columIndex)
+    {
+        if (columIndex - 2 < 0) { return 99; }
+        var a = temp[columIndex - 2] as FruitItem;
+        var b = temp[columIndex - 1] as FruitItem;
+        if (a.fruitType == b.fruitType)
+        {
+            return b.fruitType;
+        }
+
+        return 99;
+    }
+
+    int ReturnCantUseRow(int row, int col)
+    {
+        if (row - 2 < 0) { return 99; }
+        var a = GetFruitItem(row - 2, col);
+        var b = GetFruitItem(row - 1, col);
+        if (a.fruitType == b.fruitType)
+        {
+            return b.fruitType;
+        }
+
+        return 99;
     }
 
     /// <summary>
     /// 随机一个水果
     /// </summary>
-    private FruitItem AddRandomFruitItem(int rowIndex, int columIndex)
+    private FruitItem AddRandomFruitItem(int rowIndex, int columIndex, int type)
     {
         // 随机一个水果类型
-        var fruitType = Random.Range(0, fruitPrefabs.Length);
+        var fruitType = type;
         var item = new GameObject("item");
         item.transform.SetParent(m_fruitRoot, false);
         item.AddComponent<BoxCollider2D>().size = Vector2.one * GlobalDef.CELL_SIZE;
@@ -525,6 +564,41 @@ public class FruitSpawner : MonoBehaviour
 
         // item1.UpdatePosition(item1.rowIndex, item1.columIndex, true);
         // item2.UpdatePosition(item2.rowIndex, item2.columIndex, true);
+    }
+
+    /// <summary>
+    /// 自动递归检测水果消除
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator FirstMatch()
+    {
+        // 每次檢查水果消除之前都檢查一次 可不可以消除
+        if (CheckDeadEnd())
+        {
+            ResetAllFruit();
+            yield break;
+        }
+
+        if (CheckHorizontalMatch())
+        {
+            RemoveMatchFruit();
+            yield return new WaitForSeconds(0.2f);
+            DropDownOtherFruit();
+
+            m_matchFruits = new ArrayList();
+
+            yield return new WaitForSeconds(0.6f);
+
+            StartCoroutine(AutoMatchAgain());
+        }
+
+        if (CheckVerticalMatch())
+        {
+            
+        }
+
+        // 恢復滑動
+        m_canSlide = true;
     }
 
 
