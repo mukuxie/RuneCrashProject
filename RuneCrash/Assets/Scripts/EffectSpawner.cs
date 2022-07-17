@@ -25,6 +25,8 @@ public class EffectSpawner : MonoBehaviour
     /// </summary>
     private Queue<TextMeshPro> m_scoreEffectPool = new Queue<TextMeshPro>();
 
+    private GamePanel gamePanel;
+
     private Transform m_effectRoot;
 
     [Header("音效")]
@@ -37,6 +39,8 @@ public class EffectSpawner : MonoBehaviour
         m_effectRoot = transform;
 
         EventDispatcher.instance.Regist(EventDef.EVENT_FRUIT_DISAPPEAR, OnFruitDisappear);
+
+        gamePanel = GameObject.Find("Panel").GetComponent<GamePanel>();
 
         // 抓音效播放器
         aud = GetComponent<AudioSource>();
@@ -53,8 +57,6 @@ public class EffectSpawner : MonoBehaviour
         ShowDisappearEffect(pos);
         // 先写死加10分
         ShowScoreEffect(pos, 10);
-        
-
     }
 
     /// <summary>
@@ -114,6 +116,6 @@ public class EffectSpawner : MonoBehaviour
         }
         textMesh.gameObject.SetActive(true);
         textMesh.transform.position = pos;
-        textMesh.text = addScore.ToString();
+        textMesh.text = (addScore * gamePanel.MultiplyCombo()).ToString();
     }
 }

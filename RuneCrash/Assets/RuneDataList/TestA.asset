@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc69fb4ef9dbdb54f96f29c028edad38, type: 3}
+  m_Name: TestA
+  m_EditorClassIdentifier: 
+  runeList:
+  - {fileID: 176959158906548103, guid: fa56a46a83bdb764fbb51fca54aeb04d, type: 3}
+  - {fileID: 1467120954586048706, guid: 32b090895c488884296787b2fba7a75e, type: 3}
+  - {fileID: 7424440914215548343, guid: 039684f3db58a18448dcbeddcd64885c, type: 3}
+  - {fileID: 5000717274025318805, guid: a831284e1474342409fab033838118f8, type: 3}
+  - {fileID: 3187081752528019778, guid: 8ab1d7496aa64df46bd9dd3cf90744c3, type: 3}
+  - {fileID: 174974883497140389, guid: b217f8cffe22fb645a2866a58460d707, type: 3}
